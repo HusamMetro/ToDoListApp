@@ -4,13 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.tuwaiq.husam.todolistapp.R
 import com.tuwaiq.husam.todolistapp.TaskRecyclerAdapter
-import com.tuwaiq.husam.todolistapp.data.Task
 
 class MainFragment : Fragment() {
 
@@ -20,6 +21,7 @@ class MainFragment : Fragment() {
 
     private lateinit var viewModel: MainViewModel
     private lateinit var recyclerView: RecyclerView
+    private lateinit var btnAdd: Button
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,12 +35,18 @@ class MainFragment : Fragment() {
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         recyclerView = view.findViewById(R.id.rvRecycleView_Main)
         // sample of list of Task
-        val taskList = mutableListOf<Task>()
-        for (index in 0..15) {
-             taskList += Task(" Task Title = $index ")
-        }
-        recyclerView.adapter = TaskRecyclerAdapter(taskList)
+        viewModel.fillTaskListWithData()
+        recyclerView.adapter = TaskRecyclerAdapter(viewModel.getTaskList())
         recyclerView.layoutManager = LinearLayoutManager(view.context)
-    }
+        //
+        btnAdd = view.findViewById(R.id.btnAdd_Main)
+        btnAdd.setOnClickListener {
+            val activity = context as AppCompatActivity
+            activity.supportFragmentManager.beginTransaction()
+                .replace(R.id.container, TaskFragment.newInstance())
+                .addToBackStack("toTask")
+                .commit()
+        }
 
+    }
 }
