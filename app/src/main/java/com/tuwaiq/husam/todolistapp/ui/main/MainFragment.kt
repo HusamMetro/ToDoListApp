@@ -10,6 +10,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.tuwaiq.husam.todolistapp.R
 import com.tuwaiq.husam.todolistapp.TaskRecyclerAdapter
 
@@ -21,7 +23,7 @@ class MainFragment : Fragment() {
 
     private lateinit var viewModel: MainViewModel
     private lateinit var recyclerView: RecyclerView
-    private lateinit var btnAdd: Button
+    private lateinit var btnAdd: FloatingActionButton
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,6 +52,7 @@ class MainFragment : Fragment() {
         val activity = context as AppCompatActivity
         activity.supportFragmentManager.beginTransaction()
             .replace(R.id.container, TaskFragment.newInstance())
+            .addToBackStack("MoveToTask")
             .commit()
     }
 }

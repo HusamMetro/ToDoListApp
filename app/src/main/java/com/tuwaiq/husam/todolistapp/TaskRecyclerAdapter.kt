@@ -28,6 +28,7 @@ class TaskRecyclerAdapter(private val taskList: List<Task>) :
             fragment.arguments = bundle
             bundle.putParcelable("taskKey", task)
             activity.supportFragmentManager.beginTransaction()
+                .addToBackStack("MoveToTask")
                 .replace(R.id.container, fragment)
                 .commit()
         }

@@ -47,6 +47,7 @@ class TaskFragment : Fragment() {
 
     private fun returnToMainFragment() {
         activity?.apply {
+            supportFragmentManager.popBackStack()
             supportFragmentManager.beginTransaction()
                 .replace(R.id.container, MainFragment.newInstance())
                 .commit()
