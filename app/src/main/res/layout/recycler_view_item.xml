@@ -8,12 +8,19 @@
     <TextView
         android:id="@+id/txtView1_RV"
         android:layout_width="0dp"
-        android:textSize="25sp"
         android:layout_height="wrap_content"
         android:text="@string/task_title"
+        android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineV1_Item"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineV1_Item"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.70" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

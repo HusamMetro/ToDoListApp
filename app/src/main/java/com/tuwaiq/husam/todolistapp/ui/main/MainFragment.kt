@@ -41,12 +41,15 @@ class MainFragment : Fragment() {
         //
         btnAdd = view.findViewById(R.id.btnAdd_Main)
         btnAdd.setOnClickListener {
-            val activity = context as AppCompatActivity
-            activity.supportFragmentManager.beginTransaction()
-                .replace(R.id.container, TaskFragment.newInstance())
-                .addToBackStack("toTask")
-                .commit()
+            moveToTask()
         }
 
+    }
+
+    private fun moveToTask() {
+        val activity = context as AppCompatActivity
+        activity.supportFragmentManager.beginTransaction()
+            .replace(R.id.container, TaskFragment.newInstance())
+            .commit()
     }
 }

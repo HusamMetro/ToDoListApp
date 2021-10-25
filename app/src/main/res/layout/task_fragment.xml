@@ -57,6 +57,17 @@
         app:layout_constraintTop_toTopOf="@+id/guidelineH2_Task" />
 
     <Button
+        android:id="@+id/btnDelete_Task"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="10dp"
+        android:visibility="invisible"
+        android:text="@string/delete"
+        app:layout_constraintBottom_toTopOf="@+id/guidelineH2_Task"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
         android:id="@+id/btnCancel_Task"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
