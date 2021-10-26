@@ -4,4 +4,4 @@ import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-data class Task(val TaskTitle:String): Parcelable
+data class Task(val title: String, val startDate: String, val endDate: String) : Parcelable

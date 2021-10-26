@@ -10,11 +10,11 @@ object Repo {
     }
 
     fun fillTaskListWithData() {
-        if (taskList.isEmpty()) {
+        /*if (taskList.isEmpty()) {
             for (index in 0..15) {
                 taskList += Task("Task Title = $index ")
             }
-        }
+        }*/
     }
 
     fun insertTaskToList(task: Task) {

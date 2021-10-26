@@ -20,7 +20,7 @@ class TaskRecyclerAdapter(private val taskList: List<Task>) :
 
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
         val task = taskList[position]
-        holder.textViewTask.text = task.TaskTitle
+        holder.textViewTask.text = task.title
         holder.itemView.setOnClickListener { view ->
             val activity: AppCompatActivity = view.context as AppCompatActivity
             val bundle = Bundle()

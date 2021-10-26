@@ -5,4 +5,7 @@
     <string name="save">Save</string>
     <string name="cancel">Cancel</string>
     <string name="delete">Delete</string>
+    <string name="date">Date</string>
+    <string name="dd_mm_yy">DD/MM/YY</string>
+    <string name="end_date">End Date</string>
 </resources>
