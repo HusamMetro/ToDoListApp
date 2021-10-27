@@ -25,9 +25,9 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="10dp"
-        android:imeOptions="actionDone"
         android:ems="10"
         android:hint="@string/task_title"
+        android:imeOptions="actionDone"
         android:inputType="textPersonName"
         android:textSize="25sp"
         app:layout_constraintBottom_toTopOf="@+id/guidelineH1_Task"
@@ -81,6 +81,26 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.35" />
 
+    <TextView
+        android:id="@+id/txtView3_Task"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="10dp"
+        android:gravity="center"
+        android:text="@string/description"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/guidelineH4_Task"
+        app:layout_constraintEnd_toStartOf="@+id/guidelineV1_Task"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guidelineH3_Task" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guidelineH4_Task"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.40" />
+
     <Button
         android:id="@+id/btnSave_Task"
         android:layout_width="wrap_content"
@@ -125,5 +145,17 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.5" />
+
+    <EditText
+        android:id="@+id/editTextDescription"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:ems="10"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+        app:layout_constraintBottom_toTopOf="@+id/guidelineH4_Task"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/guidelineV1_Task"
+        app:layout_constraintTop_toBottomOf="@+id/txtViewEndDate_Task" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

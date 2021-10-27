@@ -24,10 +24,12 @@ class TaskFragment : Fragment() {
 
     private lateinit var viewModel: TaskViewModel
     private lateinit var editTitleView: EditText
+    private lateinit var editTextDescription: EditText
     private lateinit var dateTextView: TextView
     private lateinit var btnSend: Button
     private lateinit var btnCancel: Button
     private lateinit var btnDelete: Button
+
     private var startDate: String = ""
     private var endDate: String = ""
     override fun onCreateView(
@@ -45,7 +47,7 @@ class TaskFragment : Fragment() {
         btnCancel = view.findViewById(R.id.btnCancel_Task)
         btnDelete = view.findViewById(R.id.btnDelete_Task)
         dateTextView = view.findViewById(R.id.txtViewEndDate_Task)
-
+        editTextDescription = view.findViewById(R.id.editTextDescription)
         if (arguments?.size() == null) {
             dateTextView.setOnClickListener {
                 getDateFromDatePickerDialog(it)
@@ -81,12 +83,13 @@ class TaskFragment : Fragment() {
         arguments?.getParcelable<Task>("taskKey")?.let { task ->
             editTitleView.setText(task.title)
             dateTextView.text = (task.endDate)
+            editTextDescription.setText(task.description)
             btnDelete.visibility = VISIBLE
             btnDelete.setOnClickListener {
                 deleteButtonFunction(it, task)
             }
             btnSend.setOnClickListener {
-                updateFunction(view, task)
+                updateFunction(view)
             }
         }
     }
@@ -102,18 +105,28 @@ class TaskFragment : Fragment() {
 
     private fun sendButtonFunction(view: View) {
         if (editTitleView.text.isNotEmpty() && editTitleView.text.isNotBlank()) {
-            viewModel.insertTaskToList(Task(editTitleView.text.toString(), startDate, endDate))
+            viewModel.insertTaskToList(
+                Task(
+                    editTitleView.text.toString(),
+                    startDate,
+                    endDate,
+                    editTextDescription.text.toString()
+                )
+            )
         } else {
             Toast.makeText(view.context, "String is Empty", Toast.LENGTH_SHORT).show()
         }
         returnToMainFragment()
     }
 
-    private fun updateFunction(view: View, task: Task) {
+    private fun updateFunction(view: View) {
         if (editTitleView.text.isNotEmpty() && editTitleView.text.isNotBlank()) {
             viewModel.updateTaskOnList(
-                task, Task(editTitleView.text.toString(), task.startDate, task.endDate)
+                requireArguments().getInt("position"),
+                editTitleView.text.toString(),
+                editTextDescription.text.toString()
             )
+
         } else {
             Toast.makeText(view.context, "String is Empty", Toast.LENGTH_SHORT).show()
         }

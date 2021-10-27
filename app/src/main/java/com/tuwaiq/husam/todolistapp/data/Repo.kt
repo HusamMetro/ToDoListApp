@@ -3,8 +3,9 @@ package com.tuwaiq.husam.todolistapp.data
 import com.tuwaiq.husam.todolistapp.data.model.Task
 
 object Repo {
-
     private val taskList: MutableList<Task> = mutableListOf()
+
+
     fun getTaskList(): List<Task> {
         return taskList
     }
@@ -25,9 +26,20 @@ object Repo {
         taskList -= task
     }
 
-    fun updateTaskOnList(task: Task, updatedTask: Task) {
-        taskList -= task
-        taskList += updatedTask
+    fun updateTaskOnList(
+        position: Int,
+        title: String,
+        description: String,
+        desCompleted: String = ""
+    ) {
+        taskList[position].title = title
+        taskList[position].description = description
+        taskList[position].desCompleted = desCompleted
+
+    }
+
+    fun updateCompletedTask(position: Int, completed: Boolean) {
+        taskList[position].completed = completed
     }
 
 }

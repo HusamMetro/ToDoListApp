@@ -5,14 +5,15 @@ import com.tuwaiq.husam.todolistapp.data.Repo
 import com.tuwaiq.husam.todolistapp.data.model.Task
 
 class MainViewModel : ViewModel() {
+    private val repo: Repo = Repo
 
     fun fillTaskListWithData() {
-        Repo.fillTaskListWithData()
+
     }
 
 
     fun getTaskList(): List<Task> {
-        return Repo.getTaskList()
+       return repo.getTaskList()
         /*val sortedList = Repo.getTaskList().sortedByDescending {
             it.TaskTitle
         }

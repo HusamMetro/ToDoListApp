@@ -8,4 +8,6 @@
     <string name="date">Date</string>
     <string name="dd_mm_yy">DD/MM/YY</string>
     <string name="end_date">End Date</string>
+    <string name="description">Description</string>
+    <string name="completed">Completed</string>
 </resources>

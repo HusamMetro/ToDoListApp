@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Adapter
 import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -24,6 +25,7 @@ class MainFragment : Fragment() {
     private lateinit var viewModel: MainViewModel
     private lateinit var recyclerView: RecyclerView
     private lateinit var btnAdd: FloatingActionButton
+    private lateinit var adapter : TaskRecyclerAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,11 +38,10 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         recyclerView = view.findViewById(R.id.rvRecycleView_Main)
-        // sample of list of Task
-        viewModel.fillTaskListWithData()
-        recyclerView.adapter = TaskRecyclerAdapter(viewModel.getTaskList())
         recyclerView.layoutManager = LinearLayoutManager(view.context)
-        //
+        adapter = TaskRecyclerAdapter(viewModel.getTaskList())
+        recyclerView.adapter = adapter
+
         btnAdd = view.findViewById(R.id.btnAdd_Main)
         btnAdd.setOnClickListener {
             moveToTask()
