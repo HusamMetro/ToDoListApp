@@ -43,6 +43,10 @@ class TaskRecyclerAdapter(private val taskList: List<Task>) :
             holder.dateTextView.visibility = View.VISIBLE
             holder.textViewEndDate.visibility = View.VISIBLE
         }
+        else{
+            holder.dateTextView.visibility = View.GONE
+            holder.textViewEndDate.visibility = View.GONE
+        }
         holder.checkBox.setOnClickListener {
             val completed = holder.checkBox.isChecked
             changeBackgroundColor(holder,completed)
@@ -61,7 +65,7 @@ class TaskRecyclerAdapter(private val taskList: List<Task>) :
                 .commit()
         }
     }
-    fun changeBackgroundColor(holder:TaskViewHolder,completed: Boolean) {
+    private fun changeBackgroundColor(holder:TaskViewHolder, completed: Boolean) {
         if (completed)
             holder.mainConLayout.setBackgroundColor(
                 holder.itemView.resources.getColor(
@@ -77,7 +81,7 @@ class TaskRecyclerAdapter(private val taskList: List<Task>) :
     }
 
     override fun getItemCount(): Int = taskList.size
-    fun updateListAfterCompleted(position:Int,completed:Boolean) {
+    private fun updateListAfterCompleted(position:Int, completed:Boolean) {
         Repo.updateCompletedTask(position,completed)
     }
 }

@@ -25,7 +25,9 @@ class TaskFragment : Fragment() {
     private lateinit var viewModel: TaskViewModel
     private lateinit var editTitleView: EditText
     private lateinit var editTextDescription: EditText
+    private lateinit var editTextCompletedDescription: EditText
     private lateinit var dateTextView: TextView
+    private lateinit var completedTextView: TextView
     private lateinit var btnSend: Button
     private lateinit var btnCancel: Button
     private lateinit var btnDelete: Button
@@ -48,6 +50,9 @@ class TaskFragment : Fragment() {
         btnDelete = view.findViewById(R.id.btnDelete_Task)
         dateTextView = view.findViewById(R.id.txtViewEndDate_Task)
         editTextDescription = view.findViewById(R.id.editTextDescription)
+        editTextCompletedDescription = view.findViewById(R.id.editTextCompletedDescription)
+        completedTextView = view.findViewById(R.id.txtView4_Task)
+
         if (arguments?.size() == null) {
             dateTextView.setOnClickListener {
                 getDateFromDatePickerDialog(it)
@@ -84,6 +89,13 @@ class TaskFragment : Fragment() {
             editTitleView.setText(task.title)
             dateTextView.text = (task.endDate)
             editTextDescription.setText(task.description)
+            if (task.completed) {
+                editTitleView.isEnabled = false
+                editTextDescription.isEnabled =false
+                editTextCompletedDescription.visibility = VISIBLE
+                completedTextView.visibility = VISIBLE
+                editTextCompletedDescription.setText(task.desCompleted)
+            }
             btnDelete.visibility = VISIBLE
             btnDelete.setOnClickListener {
                 deleteButtonFunction(it, task)
@@ -113,6 +125,7 @@ class TaskFragment : Fragment() {
                     editTextDescription.text.toString()
                 )
             )
+
         } else {
             Toast.makeText(view.context, "String is Empty", Toast.LENGTH_SHORT).show()
         }
@@ -124,7 +137,8 @@ class TaskFragment : Fragment() {
             viewModel.updateTaskOnList(
                 requireArguments().getInt("position"),
                 editTitleView.text.toString(),
-                editTextDescription.text.toString()
+                editTextDescription.text.toString(),
+                editTextCompletedDescription.text.toString()
             )
 
         } else {
