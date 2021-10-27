@@ -1,5 +1,6 @@
 package com.tuwaiq.husam.todolistapp.ui.main
 
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,11 +8,13 @@ import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.tuwaiq.husam.todolistapp.R
 import com.tuwaiq.husam.todolistapp.data.model.Task
+import java.util.*
 
 class TaskFragment : Fragment() {
 
@@ -21,10 +24,16 @@ class TaskFragment : Fragment() {
 
     private lateinit var viewModel: TaskViewModel
     private lateinit var editTitleView: EditText
+    private lateinit var editTextDescription: EditText
+    private lateinit var editTextCompletedDescription: EditText
+    private lateinit var dateTextView: TextView
+    private lateinit var completedTextView: TextView
     private lateinit var btnSend: Button
     private lateinit var btnCancel: Button
     private lateinit var btnDelete: Button
 
+    private var startDate: String = ""
+    private var endDate: String = ""
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -32,15 +41,67 @@ class TaskFragment : Fragment() {
         return inflater.inflate(R.layout.task_fragment, container, false)
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel = ViewModelProvider(this).get(TaskViewModel::class.java)
+        editTitleView = view.findViewById(R.id.editTitle1_Task)
+        btnSend = view.findViewById(R.id.btnSave_Task)
+        btnCancel = view.findViewById(R.id.btnCancel_Task)
+        btnDelete = view.findViewById(R.id.btnDelete_Task)
+        dateTextView = view.findViewById(R.id.txtViewEndDate_Task)
+        editTextDescription = view.findViewById(R.id.editTextDescription)
+        editTextCompletedDescription = view.findViewById(R.id.editTextCompletedDescription)
+        completedTextView = view.findViewById(R.id.txtView4_Task)
+
+        if (arguments?.size() == null) {
+            dateTextView.setOnClickListener {
+                getDateFromDatePickerDialog(it)
+            }
+            btnSend.setOnClickListener {
+                sendButtonFunction(it)
+            }
+        } else {
+            updateUI(view)
+        }
+        btnCancel.setOnClickListener {
+            cancelButtonFunction(it)
+        }
+
+    }
+
+    private fun getDateFromDatePickerDialog(view: View) {
+        val cal = Calendar.getInstance()
+        val day = cal.get(Calendar.DAY_OF_MONTH)
+        val month = cal.get(Calendar.MONTH)
+        val year = cal.get(Calendar.YEAR)
+        startDate = "$day/$month/$year"
+        val datePD = DatePickerDialog(view.context, { _, y, m, d ->
+            endDate = "$d/$m/$y"
+            dateTextView.text = endDate
+        }, year, month, day)
+        cal.add(Calendar.DAY_OF_MONTH, 1)
+        datePD.datePicker.minDate = cal.timeInMillis
+        datePD.show()
+    }
+
     private fun updateUI(view: View) {
         arguments?.getParcelable<Task>("taskKey")?.let { task ->
-            editTitleView.setText(task.TaskTitle)
+            editTitleView.setText(task.title)
+            dateTextView.text = (task.endDate)
+            editTextDescription.setText(task.description)
+            if (task.completed) {
+                editTitleView.isEnabled = false
+                editTextDescription.isEnabled =false
+                editTextCompletedDescription.visibility = VISIBLE
+                completedTextView.visibility = VISIBLE
+                editTextCompletedDescription.setText(task.desCompleted)
+            }
             btnDelete.visibility = VISIBLE
             btnDelete.setOnClickListener {
                 deleteButtonFunction(it, task)
             }
             btnSend.setOnClickListener {
-                updateFunction(view, task)
+                updateFunction(view)
             }
         }
     }
@@ -56,16 +117,30 @@ class TaskFragment : Fragment() {
 
     private fun sendButtonFunction(view: View) {
         if (editTitleView.text.isNotEmpty() && editTitleView.text.isNotBlank()) {
-            viewModel.insertTaskToList(Task(editTitleView.text.toString()))
+            viewModel.insertTaskToList(
+                Task(
+                    editTitleView.text.toString(),
+                    startDate,
+                    endDate,
+                    editTextDescription.text.toString()
+                )
+            )
+
         } else {
             Toast.makeText(view.context, "String is Empty", Toast.LENGTH_SHORT).show()
         }
         returnToMainFragment()
     }
 
-    private fun updateFunction(view: View, task: Task) {
+    private fun updateFunction(view: View) {
         if (editTitleView.text.isNotEmpty() && editTitleView.text.isNotBlank()) {
-            viewModel.updateTaskOnList(task, Task(editTitleView.text.toString()))
+            viewModel.updateTaskOnList(
+                requireArguments().getInt("position"),
+                editTitleView.text.toString(),
+                editTextDescription.text.toString(),
+                editTextCompletedDescription.text.toString()
+            )
+
         } else {
             Toast.makeText(view.context, "String is Empty", Toast.LENGTH_SHORT).show()
         }
@@ -79,25 +154,5 @@ class TaskFragment : Fragment() {
     private fun deleteButtonFunction(view: View, task: Task) {
         viewModel.deleteTaskFromList(task)
         returnToMainFragment()
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this).get(TaskViewModel::class.java)
-        editTitleView = view.findViewById(R.id.editTitle1_Task)
-        btnSend = view.findViewById(R.id.btnSave_Task)
-        btnCancel = view.findViewById(R.id.btnCancel_Task)
-        btnDelete = view.findViewById(R.id.btnDelete_Task)
-
-        if (arguments?.size() == null) {
-            btnSend.setOnClickListener {
-                sendButtonFunction(it)
-            }
-        } else {
-            updateUI(view)
-        }
-        btnCancel.setOnClickListener {
-            cancelButtonFunction(it)
-        }
     }
 }

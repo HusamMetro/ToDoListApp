@@ -12,17 +12,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:contentDescription="@string/add"
         android:layout_margin="16dp"
-        app:srcCompat="@drawable/ic_baseline_add_24"
+        android:contentDescription="@string/add"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guidelineV1_Main"
         app:layout_constraintTop_toTopOf="@+id/guidelineH1_Main"
-        />
-    />
-
-
+        app:srcCompat="@drawable/ic_baseline_add_24" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvRecycleView_Main"
