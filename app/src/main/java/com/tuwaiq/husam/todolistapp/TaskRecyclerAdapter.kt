@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.tuwaiq.husam.todolistapp.data.Repo
 import com.tuwaiq.husam.todolistapp.data.model.Task
 import com.tuwaiq.husam.todolistapp.ui.main.TaskFragment
+import java.util.*
 
 class TaskRecyclerAdapter(private val taskList: List<Task>) :
     RecyclerView.Adapter<TaskRecyclerAdapter.TaskViewHolder>() {
@@ -34,23 +35,25 @@ class TaskRecyclerAdapter(private val taskList: List<Task>) :
     override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
         val task = taskList[position]
         holder.textViewTask.text = task.title
-        holder.horizontalLine.setGuidelinePercent(1.00F)
-        holder.checkBox.isChecked = task.completed
-        changeBackgroundColor(holder,task.completed)
+        holder.checkBox.isChecked = task.checked
+//        holder.horizontalLine.setGuidelinePercent(1.00F)
         if (task.endDate.isNotEmpty()) {
-            holder.horizontalLine.setGuidelinePercent(0.50F)
             holder.dateTextView.text = task.endDate
-            holder.dateTextView.visibility = View.VISIBLE
-            holder.textViewEndDate.visibility = View.VISIBLE
+            task.completed = getCalenderResult(task.endDate, holder.itemView)
+//            holder.horizontalLine.setGuidelinePercent(0.50F)
         }
-        else{
-            holder.dateTextView.visibility = View.GONE
-            holder.textViewEndDate.visibility = View.GONE
-        }
+//            holder.dateTextView.visibility = View.VISIBLE
+//            holder.textViewEndDate.visibility = View.VISIBLE
+//        } else {
+//            holder.dateTextView.visibility = View.GONE
+//            holder.textViewEndDate.visibility = View.GONE
+//        }
+        changeBackgroundColor(holder, task.checked,task.completed)
         holder.checkBox.setOnClickListener {
-            val completed = holder.checkBox.isChecked
-            changeBackgroundColor(holder,completed)
-            updateListAfterCompleted(position,completed)
+            val checked = holder.checkBox.isChecked
+            task.checked = checked
+            changeBackgroundColor(holder, task.checked,task.completed)
+            updateList(task, position)
         }
         holder.itemView.setOnClickListener { view ->
             val activity: AppCompatActivity = view.context as AppCompatActivity
@@ -58,30 +61,58 @@ class TaskRecyclerAdapter(private val taskList: List<Task>) :
             val fragment = TaskFragment.newInstance()
             fragment.arguments = bundle
             bundle.putParcelable("taskKey", task)
-            bundle.putInt("position",position)
+            bundle.putInt("position", position)
             activity.supportFragmentManager.beginTransaction()
                 .addToBackStack("MoveToTask")
                 .replace(R.id.container, fragment)
                 .commit()
         }
     }
-    private fun changeBackgroundColor(holder:TaskViewHolder, completed: Boolean) {
-        if (completed)
-            holder.mainConLayout.setBackgroundColor(
+
+    private fun changeBackgroundColor(
+        holder: TaskViewHolder,
+        checked: Boolean,
+        completed: Boolean
+    ) {
+        when {
+            completed -> holder.mainConLayout.setBackgroundColor(
+                holder.itemView.resources.getColor(
+                    R.color.light_pink,
+                    null
+                )
+            )
+            checked -> holder.mainConLayout.setBackgroundColor(
                 holder.itemView.resources.getColor(
                     R.color.purple_700,
                     null
                 )
             )
-        else {
-            holder.mainConLayout.setBackgroundColor(
-                holder.itemView.resources.getColor(R.color.light_blue, null)
-            )
+            else -> {
+                holder.mainConLayout.setBackgroundColor(
+                    holder.itemView.resources.getColor(
+                        R.color.light_blue,
+                        null
+                    )
+                )
+            }
         }
     }
 
+    private fun getCalenderResult(endDate: String, itemView: View): Boolean {
+        val list = endDate.split("/")
+        val day: Int = list[0].toInt()
+        val month: Int = list[1].toInt()
+        val year: Int = list[2].toInt()
+        val calEndDate = Calendar.getInstance()
+        calEndDate.set(year, month, day)
+        val currentDate = Calendar.getInstance()
+        return calEndDate.compareTo(currentDate) < 0
+    }
+
     override fun getItemCount(): Int = taskList.size
-    private fun updateListAfterCompleted(position:Int, completed:Boolean) {
-        Repo.updateCompletedTask(position,completed)
+
+    private fun updateList(task: Task, position: Int) {
+        Repo.updateTaskOnList(task, position)
+        notifyDataSetChanged()
     }
 }

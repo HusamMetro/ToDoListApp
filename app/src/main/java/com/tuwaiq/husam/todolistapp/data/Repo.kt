@@ -26,20 +26,8 @@ object Repo {
         taskList -= task
     }
 
-    fun updateTaskOnList(
-        position: Int,
-        title: String,
-        description: String,
-        desCompleted: String = ""
-    ) {
-        taskList[position].title = title
-        taskList[position].description = description
-        taskList[position].desCompleted = desCompleted
-
+    fun updateTaskOnList(task: Task,index:Int) {
+        taskList.removeAt(index)
+        taskList += task
     }
-
-    fun updateCompletedTask(position: Int, completed: Boolean) {
-        taskList[position].completed = completed
-    }
-
 }

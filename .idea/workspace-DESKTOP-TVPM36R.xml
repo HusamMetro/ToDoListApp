@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AndroidLayouts">
+    <shared>
+      <config />
+    </shared>
+  </component>
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="NONE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="e65dfaae-d470-411f-8a56-5753cbf450da" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[C:\Users\Gamer\.android\avd\Pixel_4_API30_R11.avd]" />
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="layoutResourceFile" />
+        <option value="Kotlin Data Class" />
+        <option value="Kotlin Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="Version-1.1_Initial_Implementation" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="ProjectId" id="1zzRX3lOkHYxiYVxtzWvMN6v5WA" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="dart.analysis.tool.window.visible" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Fragment_lesson" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.17" />
+    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="show.migrate.to.gradle.popup" value="false" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
+      <recent name="com.tuwaiq.husam.todolistapp.data.model" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false">
+      <module name="To_Do_List_App.app" />
+      <option name="DEPLOY" value="true" />
+      <option name="DEPLOY_APK_FROM_BUNDLE" value="false" />
+      <option name="DEPLOY_AS_INSTANT" value="false" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="ALL_USERS" value="false" />
+      <option name="ALWAYS_INSTALL_WITH_PM" value="false" />
+      <option name="DYNAMIC_FEATURES_DISABLED_LIST" value="" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+      <option name="MODE" value="default_activity" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="TARGET_SELECTION_MODE" value="DEVICE_AND_SNAPSHOT_COMBO_BOX" />
+      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
+      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
+      <option name="DEBUGGER_TYPE" value="Auto" />
+      <Auto>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Auto>
+      <Hybrid>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Hybrid>
+      <Java />
+      <Native>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Native>
+      <Profilers>
+        <option name="ADVANCED_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_ENABLED" value="false" />
+        <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Sample Java Methods" />
+        <option name="STARTUP_NATIVE_MEMORY_PROFILING_ENABLED" value="false" />
+        <option name="NATIVE_MEMORY_SAMPLE_RATE_BYTES" value="2048" />
+      </Profilers>
+      <option name="DEEP_LINK" value="" />
+      <option name="ACTIVITY_CLASS" value="" />
+      <option name="SEARCH_ACTIVITY_IN_GLOBAL_SCOPE" value="false" />
+      <option name="SKIP_ACTIVITY_VALIDATION" value="false" />
+      <method v="2">
+        <option name="Android.Gradle.BeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="e65dfaae-d470-411f-8a56-5753cbf450da" name="Default Changelist" comment="" />
+      <created>1635148965636</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1635148965636</updated>
+    </task>
+    <task id="LOCAL-00001" summary="Initial Implementation :&#10;1- made a package for data and created in it data Task class , for simplicity now we only have one parameter (taskTitle: String)&#10;2- created recycler_view_item.xml and made it show taskTitle&#10;3-  created a TaskRecyclerAdapter.kt class that contain the Adapter and View holder , for simplicity currently the view holder show TitleTask without any Listeners&#10;4- I made a small example by making hardcoded list to test the RecycleView">
+      <created>1635152652119</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1635152652119</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Initial Implementation 2:&#10;1- Created an Object Repo.kt that hold our list &#10;2- added functions to each viewModel ,so i contact viewModel to get list and viewModel will contact the Repo to get list&#10;3- added buttons to Task Fragment page and added simple implementation to it so we save out task or cancel it">
+      <created>1635167330399</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1635167330399</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Initial Implementation 3:&#10;1- made the Task data class Parcelize so i can send it from one fragment to another &#10;2- added and organized some code through functions&#10;3- added delete button to Task Fragment page Visible only for editing Task &#10;4- made the Save button do two functions depending on crating new Task or editing Task&#10;5- added updateTaskOnList and deleteTaskFromList function to Repo&#10;6- added a new Package for data.model and moved Task to it">
+      <created>1635198594884</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1635198594884</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Initial Implementation 4:&#10;1- Changed add button to Floating Action Button&#10;2- added addToBackStack() and popBackStack">
+      <created>1635201156201</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1635201156201</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Task Data 1:&#10;1- I Decided to go with startDate and endDate as String in Task data class so later it will be compatible with RoomDB &#10;2- commented the dummy data &#10;3- added endDate to task_fragment.xml , implemented it into TaskFragment.kt using DatePickerDialog">
+      <created>1635275568098</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1635275568098</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Task Data 2:&#10;1- added more parameters to data Class Task&#10;2- updated some of the repo , TaskFragment.kt , TaskRecyclerAdapter.kt and MainFragment.kt functions&#10;3- added checkButton and implemented it , Color Change when checked or not">
+      <created>1635293290586</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1635293290586</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
+    <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Initial Implementation :&#10;1- made a package for data and created in it data Task class , for simplicity now we only have one parameter (taskTitle: String)&#10;2- created recycler_view_item.xml and made it show taskTitle&#10;3-  created a TaskRecyclerAdapter.kt class that contain the Adapter and View holder , for simplicity currently the view holder show TitleTask without any Listeners&#10;4- I made a small example by making hardcoded list to test the RecycleView" />
+    <MESSAGE value="Initial Implementation 2:&#10;1- Created an Object Repo.kt that hold our list &#10;2- added functions to each viewModel ,so i contact viewModel to get list and viewModel will contact the Repo to get list&#10;3- added buttons to Task Fragment page and added simple implementation to it so we save out task or cancel it" />
+    <MESSAGE value="Initial Implementation 3:&#10;1- made the Task data class Parcelize so i can send it from one fragment to another &#10;2- added and organized some code through functions&#10;3- added delete button to Task Fragment page Visible only for editing Task &#10;4- made the Save button do two functions depending on crating new Task or editing Task&#10;5- added updateTaskOnList and deleteTaskFromList function to Repo&#10;6- added a new Package for data.model and moved Task to it" />
+    <MESSAGE value="Initial Implementation 4:&#10;1- Changed add button to Floating Action Button&#10;2- added addToBackStack() and popBackStack" />
+    <MESSAGE value="Task Data 1:&#10;1- I Decided to go with startDate and endDate as String in Task data class so later it will be compatible with RoomDB &#10;2- commented the dummy data &#10;3- added endDate to task_fragment.xml , implemented it into TaskFragment.kt using DatePickerDialog" />
+    <MESSAGE value="Task Data 2:&#10;1- added more parameters to data Class Task&#10;2- updated some of the repo , TaskFragment.kt , TaskRecyclerAdapter.kt and MainFragment.kt functions&#10;3- added checkButton and implemented it , Color Change when checked or not" />
+    <option name="LAST_COMMIT_MESSAGE" value="Task Data 2:&#10;1- added more parameters to data Class Task&#10;2- updated some of the repo , TaskFragment.kt , TaskRecyclerAdapter.kt and MainFragment.kt functions&#10;3- added checkButton and implemented it , Color Change when checked or not" />
+  </component>
+</project>

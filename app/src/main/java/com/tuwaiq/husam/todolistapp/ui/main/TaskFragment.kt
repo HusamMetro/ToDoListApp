@@ -54,14 +54,14 @@ class TaskFragment : Fragment() {
         completedTextView = view.findViewById(R.id.txtView4_Task)
 
         if (arguments?.size() == null) {
-            dateTextView.setOnClickListener {
-                getDateFromDatePickerDialog(it)
-            }
             btnSend.setOnClickListener {
                 sendButtonFunction(it)
             }
         } else {
             updateUI(view)
+        }
+        dateTextView.setOnClickListener {
+            getDateFromDatePickerDialog(it)
         }
         btnCancel.setOnClickListener {
             cancelButtonFunction(it)
@@ -80,7 +80,7 @@ class TaskFragment : Fragment() {
             dateTextView.text = endDate
         }, year, month, day)
         cal.add(Calendar.DAY_OF_MONTH, 1)
-        datePD.datePicker.minDate = cal.timeInMillis
+//        datePD.datePicker.minDate = cal.timeInMillis
         datePD.show()
     }
 
@@ -89,19 +89,25 @@ class TaskFragment : Fragment() {
             editTitleView.setText(task.title)
             dateTextView.text = (task.endDate)
             editTextDescription.setText(task.description)
-            if (task.completed) {
-                editTitleView.isEnabled = false
-                editTextDescription.isEnabled =false
+            editTextCompletedDescription.setText(task.desCompleted)
+            if (task.completed || task.checked) {
+//                editTitleView.isEnabled = false
+//                editTextDescription.isEnabled = false
                 editTextCompletedDescription.visibility = VISIBLE
                 completedTextView.visibility = VISIBLE
-                editTextCompletedDescription.setText(task.desCompleted)
+                if (task.completed) {
+                    editTitleView.isEnabled = false
+                editTextDescription.isEnabled = false
+                    dateTextView.isEnabled = false
+                }
             }
             btnDelete.visibility = VISIBLE
             btnDelete.setOnClickListener {
                 deleteButtonFunction(it, task)
             }
             btnSend.setOnClickListener {
-                updateFunction(view)
+                val index :Int = arguments?.get("position") as Int
+                updateFunction(view,task,index)
             }
         }
     }
@@ -132,14 +138,13 @@ class TaskFragment : Fragment() {
         returnToMainFragment()
     }
 
-    private fun updateFunction(view: View) {
+    private fun updateFunction(view: View,task : Task,index:Int) {
         if (editTitleView.text.isNotEmpty() && editTitleView.text.isNotBlank()) {
-            viewModel.updateTaskOnList(
-                requireArguments().getInt("position"),
-                editTitleView.text.toString(),
-                editTextDescription.text.toString(),
-                editTextCompletedDescription.text.toString()
-            )
+            task.title =editTitleView.text.toString()
+            task.description =editTextDescription.text.toString()
+            task.endDate = dateTextView.text.toString()
+            task.desCompleted=editTextCompletedDescription.text.toString()
+            viewModel.updateTaskOnList(task,index)
 
         } else {
             Toast.makeText(view.context, "String is Empty", Toast.LENGTH_SHORT).show()
