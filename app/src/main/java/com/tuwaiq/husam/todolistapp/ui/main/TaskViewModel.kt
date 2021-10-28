@@ -15,12 +15,7 @@ class TaskViewModel : ViewModel() {
         repo.deleteTaskFromList(task)
     }
 
-    fun updateTaskOnList(
-        position: Int,
-        title: String,
-        description: String,
-        desCompleted: String = ""
-    ) {
-        repo.updateTaskOnList(position, title, description, desCompleted)
+    fun updateTaskOnList(task: Task,index:Int) {
+        repo.updateTaskOnList(task,index)
     }
 }
