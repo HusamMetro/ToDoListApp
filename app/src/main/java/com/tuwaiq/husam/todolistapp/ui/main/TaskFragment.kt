@@ -12,6 +12,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.tuwaiq.husam.todolistapp.R
 import com.tuwaiq.husam.todolistapp.data.model.Task
 import java.util.*
@@ -43,22 +45,18 @@ class TaskFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this).get(TaskViewModel::class.java)
-        editTitleView = view.findViewById(R.id.editTitle1_Task)
-        btnSend = view.findViewById(R.id.btnSave_Task)
-        btnCancel = view.findViewById(R.id.btnCancel_Task)
-        btnDelete = view.findViewById(R.id.btnDelete_Task)
-        dateTextView = view.findViewById(R.id.txtViewEndDate_Task)
-        editTextDescription = view.findViewById(R.id.editTextDescription)
-        editTextCompletedDescription = view.findViewById(R.id.editTextCompletedDescription)
-        completedTextView = view.findViewById(R.id.txtView4_Task)
+        viewModel = ViewModelProvider(this)[TaskViewModel::class.java]
 
-        if (arguments?.size() == null) {
+        variablesAssign(view)
+
+        val args: TaskFragmentArgs by navArgs()
+
+        if (args.keyIndex < 0) {
             btnSend.setOnClickListener {
                 sendButtonFunction(it)
             }
         } else {
-            updateUI(view)
+            updateUI(view, args.keyTask!!, args.keyIndex)
         }
         dateTextView.setOnClickListener {
             getDateFromDatePickerDialog(it)
@@ -68,6 +66,16 @@ class TaskFragment : Fragment() {
         }
 
     }
+    private fun variablesAssign (view: View) {
+        editTitleView = view.findViewById(R.id.editTitle1_Task)
+        btnSend = view.findViewById(R.id.btnSave_Task)
+        btnCancel = view.findViewById(R.id.btnCancel_Task)
+        btnDelete = view.findViewById(R.id.btnDelete_Task)
+        dateTextView = view.findViewById(R.id.txtViewEndDate_Task)
+        editTextDescription = view.findViewById(R.id.editTextDescription)
+        editTextCompletedDescription = view.findViewById(R.id.editTextCompletedDescription)
+        completedTextView = view.findViewById(R.id.txtView4_Task)
+    }
 
     private fun getDateFromDatePickerDialog(view: View) {
         val cal = Calendar.getInstance()
@@ -76,49 +84,41 @@ class TaskFragment : Fragment() {
         val year = cal.get(Calendar.YEAR)
         startDate = "$day/$month/$year"
         val datePD = DatePickerDialog(view.context, { _, y, m, d ->
-            endDate = "$d/$m/$y"
+            endDate = "$d/${m + 1}/$y"
             dateTextView.text = endDate
         }, year, month, day)
-        cal.add(Calendar.DAY_OF_MONTH, 1)
-//        datePD.datePicker.minDate = cal.timeInMillis
+        datePD.datePicker.minDate = cal.timeInMillis
         datePD.show()
     }
 
-    private fun updateUI(view: View) {
-        arguments?.getParcelable<Task>("taskKey")?.let { task ->
-            editTitleView.setText(task.title)
-            dateTextView.text = (task.endDate)
-            editTextDescription.setText(task.description)
-            editTextCompletedDescription.setText(task.desCompleted)
-            if (task.completed || task.checked) {
+    private fun updateUI(view: View, task: Task, index: Int) {
+        editTitleView.setText(task.title)
+        dateTextView.text = (task.endDate)
+        editTextDescription.setText(task.description)
+        editTextCompletedDescription.setText(task.desCompleted)
+        if (task.pastDueDate || task.checked) {
 //                editTitleView.isEnabled = false
 //                editTextDescription.isEnabled = false
-                editTextCompletedDescription.visibility = VISIBLE
-                completedTextView.visibility = VISIBLE
-                if (task.completed) {
-                    editTitleView.isEnabled = false
+            editTextCompletedDescription.visibility = VISIBLE
+            completedTextView.visibility = VISIBLE
+            if (task.pastDueDate) {
+                editTitleView.isEnabled = false
                 editTextDescription.isEnabled = false
-                    dateTextView.isEnabled = false
-                }
+                dateTextView.isEnabled = false
             }
-            btnDelete.visibility = VISIBLE
-            btnDelete.setOnClickListener {
-                deleteButtonFunction(it, task)
-            }
-            btnSend.setOnClickListener {
-                val index :Int = arguments?.get("position") as Int
-                updateFunction(view,task,index)
-            }
+        }
+        btnDelete.visibility = VISIBLE
+        btnDelete.setOnClickListener {
+            deleteButtonFunction(it, task)
+        }
+        btnSend.setOnClickListener {
+            updateFunction(view, task, index)
         }
     }
 
     private fun returnToMainFragment() {
-        activity?.apply {
-            supportFragmentManager.popBackStack()
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.container, MainFragment.newInstance())
-                .commit()
-        }
+//        val action : NavDirections = TaskFragmentDirections.actionTaskFragmentToMainFragment()
+        findNavController().popBackStack()
     }
 
     private fun sendButtonFunction(view: View) {
@@ -138,13 +138,13 @@ class TaskFragment : Fragment() {
         returnToMainFragment()
     }
 
-    private fun updateFunction(view: View,task : Task,index:Int) {
+    private fun updateFunction(view: View, task: Task, index: Int) {
         if (editTitleView.text.isNotEmpty() && editTitleView.text.isNotBlank()) {
-            task.title =editTitleView.text.toString()
-            task.description =editTextDescription.text.toString()
+            task.title = editTitleView.text.toString()
+            task.description = editTextDescription.text.toString()
             task.endDate = dateTextView.text.toString()
-            task.desCompleted=editTextCompletedDescription.text.toString()
-            viewModel.updateTaskOnList(task,index)
+            task.desCompleted = editTextCompletedDescription.text.toString()
+            viewModel.updateTaskOnList(task, index)
 
         } else {
             Toast.makeText(view.context, "String is Empty", Toast.LENGTH_SHORT).show()

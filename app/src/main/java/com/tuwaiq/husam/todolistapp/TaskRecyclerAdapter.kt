@@ -1,18 +1,17 @@
 package com.tuwaiq.husam.todolistapp
 
-import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.constraintlayout.widget.Guideline
+import androidx.navigation.NavDirections
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.tuwaiq.husam.todolistapp.data.Repo
 import com.tuwaiq.husam.todolistapp.data.model.Task
-import com.tuwaiq.husam.todolistapp.ui.main.TaskFragment
+import com.tuwaiq.husam.todolistapp.ui.main.MainFragmentDirections
 import java.util.*
 
 class TaskRecyclerAdapter(private val taskList: List<Task>) :
@@ -21,8 +20,6 @@ class TaskRecyclerAdapter(private val taskList: List<Task>) :
         val checkBox: CheckBox = itemView.findViewById(R.id.checkBox_Item)
         val textViewTask: TextView = itemView.findViewById(R.id.txtViewTitle_RV)
         val dateTextView: TextView = itemView.findViewById(R.id.txtViewEndDate_RV)
-        val textViewEndDate: TextView = itemView.findViewById(R.id.txtView2_RV)
-        val horizontalLine: Guideline = itemView.findViewById(R.id.guidelineH1_Item)
         val mainConLayout: ConstraintLayout = itemView.findViewById(R.id.mainConstraintLayout_Item)
     }
 
@@ -36,46 +33,31 @@ class TaskRecyclerAdapter(private val taskList: List<Task>) :
         val task = taskList[position]
         holder.textViewTask.text = task.title
         holder.checkBox.isChecked = task.checked
-//        holder.horizontalLine.setGuidelinePercent(1.00F)
         if (task.endDate.isNotEmpty()) {
             holder.dateTextView.text = task.endDate
-            task.completed = getCalenderResult(task.endDate, holder.itemView)
-//            holder.horizontalLine.setGuidelinePercent(0.50F)
+            task.pastDueDate = getCalenderResult(task.endDate, holder.itemView)
         }
-//            holder.dateTextView.visibility = View.VISIBLE
-//            holder.textViewEndDate.visibility = View.VISIBLE
-//        } else {
-//            holder.dateTextView.visibility = View.GONE
-//            holder.textViewEndDate.visibility = View.GONE
-//        }
-        changeBackgroundColor(holder, task.checked,task.completed)
+        changeBackgroundColor(holder, task.checked, task.pastDueDate)
         holder.checkBox.setOnClickListener {
             val checked = holder.checkBox.isChecked
             task.checked = checked
-            changeBackgroundColor(holder, task.checked,task.completed)
+            changeBackgroundColor(holder, task.checked, task.pastDueDate)
             updateList(task, position)
         }
         holder.itemView.setOnClickListener { view ->
-            val activity: AppCompatActivity = view.context as AppCompatActivity
-            val bundle = Bundle()
-            val fragment = TaskFragment.newInstance()
-            fragment.arguments = bundle
-            bundle.putParcelable("taskKey", task)
-            bundle.putInt("position", position)
-            activity.supportFragmentManager.beginTransaction()
-                .addToBackStack("MoveToTask")
-                .replace(R.id.container, fragment)
-                .commit()
+            val action: NavDirections =
+                MainFragmentDirections.actionMainFragmentToTaskFragment(task, position)
+            view.findNavController().navigate(action)
         }
     }
 
     private fun changeBackgroundColor(
         holder: TaskViewHolder,
         checked: Boolean,
-        completed: Boolean
+        pastDeoDate: Boolean
     ) {
         when {
-            completed -> holder.mainConLayout.setBackgroundColor(
+            pastDeoDate -> holder.mainConLayout.setBackgroundColor(
                 holder.itemView.resources.getColor(
                     R.color.light_pink,
                     null
@@ -101,12 +83,12 @@ class TaskRecyclerAdapter(private val taskList: List<Task>) :
     private fun getCalenderResult(endDate: String, itemView: View): Boolean {
         val list = endDate.split("/")
         val day: Int = list[0].toInt()
-        val month: Int = list[1].toInt()
+        val month: Int = (list[1].toInt()) - 1
         val year: Int = list[2].toInt()
+        val currentDate = Calendar.getInstance()
         val calEndDate = Calendar.getInstance()
         calEndDate.set(year, month, day)
-        val currentDate = Calendar.getInstance()
-        return calEndDate.compareTo(currentDate) < 0
+        return calEndDate < currentDate
     }
 
     override fun getItemCount(): Int = taskList.size

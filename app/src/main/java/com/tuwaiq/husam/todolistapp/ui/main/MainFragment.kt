@@ -4,14 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Adapter
-import android.widget.Button
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavDirections
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.tuwaiq.husam.todolistapp.R
 import com.tuwaiq.husam.todolistapp.TaskRecyclerAdapter
@@ -25,7 +23,7 @@ class MainFragment : Fragment() {
     private lateinit var viewModel: MainViewModel
     private lateinit var recyclerView: RecyclerView
     private lateinit var btnAdd: FloatingActionButton
-    private lateinit var adapter : TaskRecyclerAdapter
+    private lateinit var adapter: TaskRecyclerAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,7 +34,7 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        viewModel = ViewModelProvider(this)[MainViewModel::class.java]
         recyclerView = view.findViewById(R.id.rvRecycleView_Main)
         recyclerView.layoutManager = LinearLayoutManager(view.context)
         adapter = TaskRecyclerAdapter(viewModel.getTaskList())
@@ -50,10 +48,7 @@ class MainFragment : Fragment() {
     }
 
     private fun moveToTask() {
-        val activity = context as AppCompatActivity
-        activity.supportFragmentManager.beginTransaction()
-            .replace(R.id.container, TaskFragment.newInstance())
-            .addToBackStack("MoveToTask")
-            .commit()
+        val action: NavDirections = MainFragmentDirections.actionMainFragmentToTaskFragment()
+        findNavController().navigate(action)
     }
 }
