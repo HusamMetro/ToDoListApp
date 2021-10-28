@@ -28,7 +28,8 @@ class TaskFragment : Fragment() {
     private lateinit var editTitleView: EditText
     private lateinit var editTextDescription: EditText
     private lateinit var editTextCompletedDescription: EditText
-    private lateinit var dateTextView: TextView
+    private lateinit var dateEndTextView: TextView
+    private lateinit var dateCreationTextView: TextView
     private lateinit var completedTextView: TextView
     private lateinit var btnSend: Button
     private lateinit var btnCancel: Button
@@ -46,25 +47,21 @@ class TaskFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this.requireActivity())[TaskViewModel::class.java]
-
         variablesAssign(view)
-
         val args: TaskFragmentArgs by navArgs()
-
-        if (args.keyIndex < 0) {
+        if (args.keyTask == null) {
             btnSend.setOnClickListener {
                 sendButtonFunction(it)
             }
         } else {
-            updateUI(view, args.keyTask!!, args.keyIndex)
+            updateUI(view, args.keyTask!!)
         }
-        dateTextView.setOnClickListener {
+        dateEndTextView.setOnClickListener {
             getDateFromDatePickerDialog(it)
         }
         btnCancel.setOnClickListener {
             cancelButtonFunction()
         }
-
     }
 
     private fun variablesAssign(view: View) {
@@ -72,7 +69,8 @@ class TaskFragment : Fragment() {
         btnSend = view.findViewById(R.id.btnSave_Task)
         btnCancel = view.findViewById(R.id.btnCancel_Task)
         btnDelete = view.findViewById(R.id.btnDelete_Task)
-        dateTextView = view.findViewById(R.id.txtViewEndDate_Task)
+        dateEndTextView = view.findViewById(R.id.txtViewEndDate_Task)
+        dateCreationTextView = view.findViewById(R.id.txtViewCreationDate_Task)
         editTextDescription = view.findViewById(R.id.editTextDescription)
         editTextCompletedDescription = view.findViewById(R.id.editTextCompletedDescription)
         completedTextView = view.findViewById(R.id.txtView4_Task)
@@ -83,29 +81,28 @@ class TaskFragment : Fragment() {
         val day = cal.get(Calendar.DAY_OF_MONTH)
         val month = cal.get(Calendar.MONTH)
         val year = cal.get(Calendar.YEAR)
-        startDate = "$day/$month/$year"
+        startDate = "$day/${(month + 1)}/$year"
         val datePD = DatePickerDialog(view.context, { _, y, m, d ->
             endDate = "$d/${m + 1}/$y"
-            dateTextView.text = endDate
+            dateEndTextView.text = endDate
         }, year, month, day)
         datePD.datePicker.minDate = cal.timeInMillis
         datePD.show()
     }
 
-    private fun updateUI(view: View, task: Task, index: Int) {
+    private fun updateUI(view: View, task: Task) {
         editTitleView.setText(task.title)
-        dateTextView.text = (task.endDate)
+        dateEndTextView.text = (task.endDate)
         editTextDescription.setText(task.description)
         editTextCompletedDescription.setText(task.desCompleted)
+        dateCreationTextView.text = task.startDate
         if (task.pastDueDate || task.checked) {
-//                editTitleView.isEnabled = false
-//                editTextDescription.isEnabled = false
             editTextCompletedDescription.visibility = VISIBLE
             completedTextView.visibility = VISIBLE
             if (task.pastDueDate) {
                 editTitleView.isEnabled = false
                 editTextDescription.isEnabled = false
-                dateTextView.isEnabled = false
+                dateEndTextView.isEnabled = false
             }
         }
         btnDelete.visibility = VISIBLE
@@ -118,7 +115,6 @@ class TaskFragment : Fragment() {
     }
 
     private fun returnToMainFragment() {
-//        val action : NavDirections = TaskFragmentDirections.actionTaskFragmentToMainFragment()
         findNavController().popBackStack()
     }
 
@@ -132,7 +128,6 @@ class TaskFragment : Fragment() {
                     editTextDescription.text.toString()
                 )
             )
-
         } else {
             Toast.makeText(view.context, "String is Empty", Toast.LENGTH_SHORT).show()
         }
@@ -143,7 +138,7 @@ class TaskFragment : Fragment() {
         if (editTitleView.text.isNotEmpty() && editTitleView.text.isNotBlank()) {
             task.title = editTitleView.text.toString()
             task.description = editTextDescription.text.toString()
-            task.endDate = dateTextView.text.toString()
+            task.endDate = dateEndTextView.text.toString()
             task.desCompleted = editTextCompletedDescription.text.toString()
             viewModel.updateTaskOnList(task)
 

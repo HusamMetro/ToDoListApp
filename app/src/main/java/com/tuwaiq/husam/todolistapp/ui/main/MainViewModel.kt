@@ -1,10 +1,8 @@
 package com.tuwaiq.husam.todolistapp.ui.main
 
 import android.app.Application
-import android.content.Context
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tuwaiq.husam.todolistapp.data.AppRepo
 import com.tuwaiq.husam.todolistapp.data.model.Task
@@ -20,9 +18,11 @@ class MainViewModel(context: Application) : AndroidViewModel(context) {
         }
         return tasks
     }
+
     fun updateTaskOnList(task: Task) = viewModelScope.launch {
         repo.updateTaskOnList(task)
     }
+
     // ---------------------------- for sorting ----------------------------
     /*val sortedList = Repo.getTaskList().sortedByDescending {
            it.TaskTitle

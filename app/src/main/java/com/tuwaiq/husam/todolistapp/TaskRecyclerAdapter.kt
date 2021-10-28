@@ -14,8 +14,11 @@ import com.tuwaiq.husam.todolistapp.ui.main.MainFragmentDirections
 import com.tuwaiq.husam.todolistapp.ui.main.MainViewModel
 import java.util.*
 
-class TaskRecyclerAdapter(private val taskList: List<Task>, private val mainViewModel: MainViewModel) :
-    RecyclerView.Adapter<TaskRecyclerAdapter.TaskViewHolder>() {
+class TaskRecyclerAdapter(
+    private val taskList: List<Task>,
+    private val mainViewModel: MainViewModel
+) : RecyclerView.Adapter<TaskRecyclerAdapter.TaskViewHolder>() {
+
     class TaskViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val checkBox: CheckBox = itemView.findViewById(R.id.checkBox_Item)
         val textViewTask: TextView = itemView.findViewById(R.id.txtViewTitle_RV)
@@ -46,39 +49,40 @@ class TaskRecyclerAdapter(private val taskList: List<Task>, private val mainView
         }
         holder.itemView.setOnClickListener { view ->
             val action: NavDirections =
-                MainFragmentDirections.actionMainFragmentToTaskFragment(task, position)
+                MainFragmentDirections.actionMainFragmentToTaskFragment(task)
             view.findNavController().navigate(action)
         }
     }
+
+    override fun getItemCount(): Int = taskList.size
 
     private fun changeBackgroundColor(
         holder: TaskViewHolder,
         checked: Boolean,
         pastDeoDate: Boolean
-    ) {
-        when {
-            pastDeoDate -> holder.mainConLayout.setBackgroundColor(
+    ) = when {
+        pastDeoDate -> holder.mainConLayout.setBackgroundColor(
+            holder.itemView.resources.getColor(
+                R.color.light_pink,
+                null
+            )
+        )
+        checked -> holder.mainConLayout.setBackgroundColor(
+            holder.itemView.resources.getColor(
+                R.color.purple_700,
+                null
+            )
+        )
+        else -> {
+            holder.mainConLayout.setBackgroundColor(
                 holder.itemView.resources.getColor(
-                    R.color.light_pink,
+                    R.color.light_blue,
                     null
                 )
             )
-            checked -> holder.mainConLayout.setBackgroundColor(
-                holder.itemView.resources.getColor(
-                    R.color.purple_700,
-                    null
-                )
-            )
-            else -> {
-                holder.mainConLayout.setBackgroundColor(
-                    holder.itemView.resources.getColor(
-                        R.color.light_blue,
-                        null
-                    )
-                )
-            }
         }
     }
+
 
     private fun getCalenderResult(endDate: String): Boolean {
         val list = endDate.split("/")
@@ -90,8 +94,6 @@ class TaskRecyclerAdapter(private val taskList: List<Task>, private val mainView
         calEndDate.set(year, month, day)
         return calEndDate < currentDate
     }
-
-    override fun getItemCount(): Int = taskList.size
 
     private fun updateList(task: Task, position: Int, mainViewModel: MainViewModel) {
         mainViewModel.updateTaskOnList(task)
