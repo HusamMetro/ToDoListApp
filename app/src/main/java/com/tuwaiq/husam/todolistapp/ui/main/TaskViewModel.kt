@@ -1,21 +1,25 @@
 package com.tuwaiq.husam.todolistapp.ui.main
 
-import androidx.lifecycle.ViewModel
-import com.tuwaiq.husam.todolistapp.data.Repo
+import android.app.Application
+import android.content.Context
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.viewModelScope
+import com.tuwaiq.husam.todolistapp.data.AppRepo
 import com.tuwaiq.husam.todolistapp.data.model.Task
+import kotlinx.coroutines.launch
 
-class TaskViewModel : ViewModel() {
-    private val repo: Repo = Repo
+class TaskViewModel(context: Application) : AndroidViewModel(context) {
+    private val repo: AppRepo = AppRepo(context)
 
-    fun insertTaskToList(task: Task) {
+    fun insertTaskToList(task: Task) = viewModelScope.launch {
         repo.insertTaskToList(task)
     }
 
-    fun deleteTaskFromList(task: Task) {
+    fun deleteTaskFromList(task: Task) = viewModelScope.launch {
         repo.deleteTaskFromList(task)
     }
 
-    fun updateTaskOnList(task: Task,index:Int) {
-        repo.updateTaskOnList(task,index)
+    fun updateTaskOnList(task: Task) = viewModelScope.launch {
+        repo.updateTaskOnList(task)
     }
 }
