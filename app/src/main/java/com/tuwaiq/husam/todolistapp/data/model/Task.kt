@@ -9,7 +9,7 @@ data class Task(
     val startDate: String,
     var endDate: String,
     var description: String,
-    var completed: Boolean = false,
+    var pastDueDate: Boolean = false,
     var checked: Boolean = false,
     var desCompleted: String = ""
 ) : Parcelable
