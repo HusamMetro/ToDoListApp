@@ -37,8 +37,10 @@ class MainFragment : Fragment() {
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
         recyclerView = view.findViewById(R.id.rvRecycleView_Main)
         recyclerView.layoutManager = LinearLayoutManager(view.context)
-        adapter = TaskRecyclerAdapter(viewModel.getTaskList())
-        recyclerView.adapter = adapter
+        viewModel.getTaskList().observe(viewLifecycleOwner) {
+            adapter = TaskRecyclerAdapter(it, viewModel)
+            recyclerView.adapter = adapter
+        }
 
         btnAdd = view.findViewById(R.id.btnAdd_Main)
         btnAdd.setOnClickListener {

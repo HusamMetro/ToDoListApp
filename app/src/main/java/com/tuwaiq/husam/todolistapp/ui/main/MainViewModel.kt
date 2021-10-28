@@ -1,22 +1,32 @@
 package com.tuwaiq.husam.todolistapp.ui.main
 
+import android.app.Application
+import android.content.Context
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.tuwaiq.husam.todolistapp.data.Repo
+import androidx.lifecycle.viewModelScope
+import com.tuwaiq.husam.todolistapp.data.AppRepo
 import com.tuwaiq.husam.todolistapp.data.model.Task
+import kotlinx.coroutines.launch
 
-class MainViewModel : ViewModel() {
-    private val repo: Repo = Repo
+class MainViewModel(context: Application) : AndroidViewModel(context) {
+    private val repo: AppRepo = AppRepo(context)
 
-    fun fillTaskListWithData() {
-
-    }
-
-
-    fun getTaskList(): List<Task> {
-       return repo.getTaskList()
-        /*val sortedList = Repo.getTaskList().sortedByDescending {
-            it.TaskTitle
+    fun getTaskList(): MutableLiveData<List<Task>> {
+        val tasks = MutableLiveData<List<Task>>()
+        viewModelScope.launch {
+            tasks.postValue(repo.getTaskList())
         }
-        return sortedList*/
+        return tasks
     }
+    fun updateTaskOnList(task: Task) = viewModelScope.launch {
+        repo.updateTaskOnList(task)
+    }
+    // ---------------------------- for sorting ----------------------------
+    /*val sortedList = Repo.getTaskList().sortedByDescending {
+           it.TaskTitle
+       }
+       return sortedList*/
+    //----------------------------------------------------------------------
 }

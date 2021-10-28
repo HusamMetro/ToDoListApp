@@ -9,12 +9,12 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
-import com.tuwaiq.husam.todolistapp.data.Repo
 import com.tuwaiq.husam.todolistapp.data.model.Task
 import com.tuwaiq.husam.todolistapp.ui.main.MainFragmentDirections
+import com.tuwaiq.husam.todolistapp.ui.main.MainViewModel
 import java.util.*
 
-class TaskRecyclerAdapter(private val taskList: List<Task>) :
+class TaskRecyclerAdapter(private val taskList: List<Task>, private val mainViewModel: MainViewModel) :
     RecyclerView.Adapter<TaskRecyclerAdapter.TaskViewHolder>() {
     class TaskViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val checkBox: CheckBox = itemView.findViewById(R.id.checkBox_Item)
@@ -35,14 +35,14 @@ class TaskRecyclerAdapter(private val taskList: List<Task>) :
         holder.checkBox.isChecked = task.checked
         if (task.endDate.isNotEmpty()) {
             holder.dateTextView.text = task.endDate
-            task.pastDueDate = getCalenderResult(task.endDate, holder.itemView)
+            task.pastDueDate = getCalenderResult(task.endDate)
         }
         changeBackgroundColor(holder, task.checked, task.pastDueDate)
         holder.checkBox.setOnClickListener {
             val checked = holder.checkBox.isChecked
             task.checked = checked
             changeBackgroundColor(holder, task.checked, task.pastDueDate)
-            updateList(task, position)
+            updateList(task, position, mainViewModel)
         }
         holder.itemView.setOnClickListener { view ->
             val action: NavDirections =
@@ -80,7 +80,7 @@ class TaskRecyclerAdapter(private val taskList: List<Task>) :
         }
     }
 
-    private fun getCalenderResult(endDate: String, itemView: View): Boolean {
+    private fun getCalenderResult(endDate: String): Boolean {
         val list = endDate.split("/")
         val day: Int = list[0].toInt()
         val month: Int = (list[1].toInt()) - 1
@@ -93,8 +93,8 @@ class TaskRecyclerAdapter(private val taskList: List<Task>) :
 
     override fun getItemCount(): Int = taskList.size
 
-    private fun updateList(task: Task, position: Int) {
-        Repo.updateTaskOnList(task, position)
-        notifyDataSetChanged()
+    private fun updateList(task: Task, position: Int, mainViewModel: MainViewModel) {
+        mainViewModel.updateTaskOnList(task)
+        notifyItemChanged(position)
     }
 }

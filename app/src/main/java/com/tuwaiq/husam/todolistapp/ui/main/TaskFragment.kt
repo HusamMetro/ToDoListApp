@@ -45,7 +45,7 @@ class TaskFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this)[TaskViewModel::class.java]
+        viewModel = ViewModelProvider(this.requireActivity())[TaskViewModel::class.java]
 
         variablesAssign(view)
 
@@ -62,11 +62,12 @@ class TaskFragment : Fragment() {
             getDateFromDatePickerDialog(it)
         }
         btnCancel.setOnClickListener {
-            cancelButtonFunction(it)
+            cancelButtonFunction()
         }
 
     }
-    private fun variablesAssign (view: View) {
+
+    private fun variablesAssign(view: View) {
         editTitleView = view.findViewById(R.id.editTitle1_Task)
         btnSend = view.findViewById(R.id.btnSave_Task)
         btnCancel = view.findViewById(R.id.btnCancel_Task)
@@ -109,10 +110,10 @@ class TaskFragment : Fragment() {
         }
         btnDelete.visibility = VISIBLE
         btnDelete.setOnClickListener {
-            deleteButtonFunction(it, task)
+            deleteButtonFunction(task)
         }
         btnSend.setOnClickListener {
-            updateFunction(view, task, index)
+            updateFunction(view, task)
         }
     }
 
@@ -138,13 +139,13 @@ class TaskFragment : Fragment() {
         returnToMainFragment()
     }
 
-    private fun updateFunction(view: View, task: Task, index: Int) {
+    private fun updateFunction(view: View, task: Task) {
         if (editTitleView.text.isNotEmpty() && editTitleView.text.isNotBlank()) {
             task.title = editTitleView.text.toString()
             task.description = editTextDescription.text.toString()
             task.endDate = dateTextView.text.toString()
             task.desCompleted = editTextCompletedDescription.text.toString()
-            viewModel.updateTaskOnList(task, index)
+            viewModel.updateTaskOnList(task)
 
         } else {
             Toast.makeText(view.context, "String is Empty", Toast.LENGTH_SHORT).show()
@@ -152,11 +153,11 @@ class TaskFragment : Fragment() {
         returnToMainFragment()
     }
 
-    private fun cancelButtonFunction(view: View) {
+    private fun cancelButtonFunction() {
         returnToMainFragment()
     }
 
-    private fun deleteButtonFunction(view: View, task: Task) {
+    private fun deleteButtonFunction(task: Task) {
         viewModel.deleteTaskFromList(task)
         returnToMainFragment()
     }
