@@ -5,50 +5,33 @@
     android:id="@+id/mainConstraintLayout_Item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="5dp"
-    android:background="@color/light_blue">
+    android:layout_margin="10dp"
+    android:background="@drawable/shape_blue">
 
-
-    <TextView
-        android:id="@+id/txtView1_RV"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/task_title"
-        android:textSize="25sp"
-        app:layout_constraintBottom_toTopOf="@+id/guidelineH1_Item"
-        app:layout_constraintEnd_toStartOf="@+id/guidelineV1_Item"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/txtViewTitle_RV"
         android:layout_width="0dp"
+        android:paddingHorizontal="10dp"
         android:layout_height="wrap_content"
-        android:gravity="center"
+        android:gravity="start"
         android:textSize="25sp"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toTopOf="@+id/guidelineH1_Item"
         app:layout_constraintEnd_toEndOf="@id/guidelineV2_Item"
         app:layout_constraintStart_toStartOf="@+id/guidelineV1_Item"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/txtView2_RV"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/end_date"
-        android:textSize="25sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/guidelineV1_Item"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guidelineH1_Item" />
+
 
     <TextView
         android:id="@+id/txtViewEndDate_RV"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:gravity="center"
+        android:paddingHorizontal="10dp"
+        android:gravity="start"
+        android:fontFamily="sans-serif"
+        android:textColor="@color/black"
         android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@id/guidelineV2_Item"
@@ -60,7 +43,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.3" />
+        app:layout_constraintGuide_percent="0.0" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineV2_Item"

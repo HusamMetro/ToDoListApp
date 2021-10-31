@@ -12,4 +12,5 @@
     <string name="completed">Completed</string>
     <string name="completed_description">Completed Description</string>
     <string name="creation_date">Creation Date</string>
+    <string name="to_do_list_app">To Do List App</string>
 </resources>

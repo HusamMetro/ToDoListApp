@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -137,7 +138,7 @@ class TaskFragment : Fragment() {
         focusManager = LocalFocusManager.current
         Surface(color = Color.LightGray) {
             Column(verticalArrangement = Arrangement.Bottom) {
-                WelcomingTitle()
+//                WelcomingTitle()
                 if (task != null) {
                     TaskPastDouDate(task)
                 } else {
@@ -153,7 +154,7 @@ class TaskFragment : Fragment() {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(10.dp)
-                .height(50.dp),
+                .height(40.dp),
             elevation = 10.dp,
             shape = RoundedCornerShape(8.dp)
         ) {
@@ -261,7 +262,7 @@ class TaskFragment : Fragment() {
                     horizontalArrangement = Arrangement.SpaceEvenly
                 ) {
                     ExtendedFloatingActionButton(
-                        backgroundColor = colorResource(id = R.color.teal_200),
+                        backgroundColor = colorResource(id = R.color.light_pink),
                         onClick = { cancelButtonFunction() },
                         icon = {
                             Icon(
@@ -272,6 +273,7 @@ class TaskFragment : Fragment() {
                         text = { Text("Cancel") }
                     )
                     ExtendedFloatingActionButton(
+                        backgroundColor = colorResource(id = R.color.light_pink),
                         onClick = { updateFunction(task) },
                         icon = {
                             Icon(
@@ -284,6 +286,7 @@ class TaskFragment : Fragment() {
                 }
                 Spacer(modifier = Modifier.height(10.dp))
                 ExtendedFloatingActionButton(
+                    backgroundColor = colorResource(id = R.color.light_pink),
                     onClick = { deleteButtonFunction(task) },
                     icon = {
                         Icon(
@@ -312,6 +315,7 @@ class TaskFragment : Fragment() {
                 horizontalArrangement = Arrangement.SpaceEvenly
             ) {
                 ExtendedFloatingActionButton(
+                    backgroundColor = colorResource(id = R.color.light_pink),
                     onClick = { cancelButtonFunction() },
                     icon = {
                         Icon(
@@ -322,6 +326,7 @@ class TaskFragment : Fragment() {
                     text = { Text("Cancel") }
                 )
                 ExtendedFloatingActionButton(
+                    backgroundColor = colorResource(id = R.color.light_pink),
                     onClick = { sendButtonFunction() },
                     icon = {
                         Icon(
