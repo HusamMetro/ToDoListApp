@@ -48,7 +48,6 @@ class TaskFragment : Fragment() {
     companion object {
         fun newInstance() = TaskFragment()
     }
-
     private lateinit var viewModel: TaskViewModel
 
     private var startDate: String = ""
