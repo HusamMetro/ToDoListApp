@@ -18,7 +18,7 @@ Learn how to Buld an app with an actual idea
 ## :camera_flash: Screenshots
 ---
 ### screenshot_1
-<img src="\results\screenshot_1.png" width="260">
+<img src="/results/screenshot_1.png" width="260">
 
 ### screenshot_2
 <img src="/results/screenshot_2.png" width="260">
