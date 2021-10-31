@@ -61,25 +61,16 @@ class TaskRecyclerAdapter(
         checked: Boolean,
         pastDeoDate: Boolean
     ) = when {
-        pastDeoDate -> holder.mainConLayout.setBackgroundColor(
+        /*pastDeoDate -> holder.mainConLayout.setBackgroundColor(
             holder.itemView.resources.getColor(
                 R.color.light_pink,
                 null
             )
-        )
-        checked -> holder.mainConLayout.setBackgroundColor(
-            holder.itemView.resources.getColor(
-                R.color.purple_700,
-                null
-            )
-        )
+        )*/
+        pastDeoDate -> holder.mainConLayout.setBackgroundResource(R.drawable.shape_red)
+        checked -> holder.mainConLayout.setBackgroundResource(R.drawable.shape_green)
         else -> {
-            holder.mainConLayout.setBackgroundColor(
-                holder.itemView.resources.getColor(
-                    R.color.light_blue,
-                    null
-                )
-            )
+            holder.mainConLayout.setBackgroundResource(R.drawable.shape_blue)
         }
     }
 
