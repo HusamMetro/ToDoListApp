@@ -7,8 +7,7 @@
 
 ## :scroll: Description
 ---
-This is my application description, what you have learned and what you, and what the ideas you have added in this app 
-I have learned to use the leasons i took and connect them all in one app , Also i learned how to Use Jetopack Compose in 1 Day 
+I have learned to use the leasons I took and connect them all in one app , Also i learned how to Use Jetopack Compose in 1 Day 
 
 ## :bulb: Motivation and Context
 ---
